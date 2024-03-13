@@ -27,7 +27,7 @@ end
 
 target 'App' do
   config = use_native_modules!
-
+  pod 'CocoaAsyncSocket'
   use_react_native!(
     :path => config[:reactNativePath],
     # Enables Flipper.
