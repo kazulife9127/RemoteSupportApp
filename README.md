@@ -1,6 +1,7 @@
 # RemoteSupportApp
 ## 画像のようにデモアプリを作動させるガイド
 1. ルートディレクトリで以下を実行
+
 ```
 npm install
 ```
@@ -10,3 +11,5 @@ npm install
 ```
 npx react-native run-ios 
 ```
+
+<img width="410" alt="スクリーンショット 2024-03-14 17 32 27" src="https://github.com/kazulife9127/RemoteSupportApp/assets/81737817/0ac50a63-41a8-4afc-afee-a1396a0d0b13">
