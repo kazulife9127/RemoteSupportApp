@@ -10,6 +10,11 @@
       "StackName": "amplify-remotesupportapp-dev-183005",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:245433834254:stack/amplify-remotesupportapp-dev-183005/71e9eb60-e1e5-11ee-b59c-0a8c2ed69321",
       "AmplifyAppId": "d3emnkio7tlax5"
+    },
+    "categories": {
+      "auth": {
+        "remotesupportappede90e5f": {}
+      }
     }
   }
 }
