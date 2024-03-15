@@ -113,6 +113,11 @@
     buffer "^6.0.3"
     react-native-url-polyfill "^2.0.0"
 
+"@aws-amplify/rtn-web-browser@^1.0.20":
+  version "1.0.20"
+  resolved "https://registry.npmjs.org/@aws-amplify/rtn-web-browser/-/rtn-web-browser-1.0.20.tgz"
+  integrity sha512-GYN0c1/dSMCKyk7oRzwAZgnKb8h8VovKU/bPcoeStWjGu8F4sKhz4awFqJ2H7CtHAWLHZsvlQJ0DS1GVN5id7w==
+
 "@aws-amplify/storage@6.0.20":
   version "6.0.20"
   resolved "https://registry.npmjs.org/@aws-amplify/storage/-/storage-6.0.20.tgz"
@@ -2694,6 +2699,11 @@
     graceful-fs "^4.1.3"
     prompts "^2.4.2"
     semver "^7.5.2"
+
+"@react-native-community/netinfo@^11.3.1":
+  version "11.3.1"
+  resolved "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-11.3.1.tgz"
+  integrity sha512-UBnJxyV0b7i9Moa97Av+HKho1ByzX0DtbJXzUQS5E3xhQs6P2D/Os0iw3ouy7joY1TVd6uIhplPbr7l1SJNaNQ==
 
 "@react-native/assets-registry@0.73.1":
   version "0.73.1"
@@ -7382,7 +7392,7 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-native-get-random-values@>=1.9.0:
+react-native-get-random-values@^1.11.0, react-native-get-random-values@>=1.9.0:
   version "1.11.0"
   resolved "https://registry.npmjs.org/react-native-get-random-values/-/react-native-get-random-values-1.11.0.tgz"
   integrity sha512-4BTbDbRmS7iPdhYLRcz3PGFIpFJBwNZg9g42iwa2P6FOv9vZj/xJc678RZXnLNZzd0qd7Q3CCF6Yd+CU2eoXKQ==
@@ -7401,7 +7411,7 @@ react-native-url-polyfill@^2.0.0:
   dependencies:
     whatwg-url-without-unicode "8.0.0-3"
 
-react-native@*, "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@^0.70 || ^0.71 || ^0.72 || ^0.73", react-native@>=0.56, react-native@>=0.70, react-native@0.73.6:
+react-native@*, "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@^0.70 || ^0.71 || ^0.72 || ^0.73", react-native@>=0.56, react-native@>=0.59, react-native@>=0.70, react-native@0.73.6:
   version "0.73.6"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.73.6.tgz"
   integrity sha512-oqmZe8D2/VolIzSPZw+oUd6j/bEmeRHwsLn1xLA5wllEYsZ5zNuMsDus235ONOnCRwexqof/J3aztyQswSmiaA==
