@@ -1,43 +1,27 @@
-import React, {useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-} from 'react-native';
+// App.js
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-function App(): React.JSX.Element {
-  const [count, setCount] = useState(0);
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Hello World</Text>
+    </View>
+  );
+};
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#333' : '#FFF',
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  };
-
-  const textStyle = {
-    color: isDarkMode ? '#FFF' : '#333',
+    backgroundColor: '#F5FCFF',
+  },
+  text: {
     fontSize: 20,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <TouchableOpacity onPress={() => setCount(count + 1)}>
-        <View>
-          <Text style={textStyle}>Tap me</Text>
-          <Text style={textStyle}>{count}</Text>
-        </View>
-      </TouchableOpacity>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  // スタイルは上記で直接適用していますが、必要に応じてここで定義できます。
+    textAlign: 'center',
+    margin: 10,
+  },
 });
 
 export default App;
