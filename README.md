@@ -11,7 +11,6 @@ npm install aws-amplify @aws-amplify/react-native @react-native-community/netinf
 ```
 npx pod-install
 ```
-5. ルートディレクトリで以下を実行
 ```
 npx react-native start --reset-cache
 npx react-native run-ios
