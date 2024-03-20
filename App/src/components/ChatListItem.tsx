@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface ChatListItemProps {
   chatName: string;
   lastMessage: string;
+  onPress: () => void;
 }
 
-const ChatListItem: React.FC<ChatListItemProps> = ({ chatName, lastMessage }) => {
+const ChatListItem: React.FC<ChatListItemProps> = ({ chatName, lastMessage, onPress }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <Text style={styles.chatName}>{chatName}</Text>
       <Text>{lastMessage}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

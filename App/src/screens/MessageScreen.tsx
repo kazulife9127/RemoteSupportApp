@@ -3,10 +3,17 @@ import { Button, FlatList, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AddFriendScreen from './AddFriendScreen';
 import ChatListItem from '../components/ChatListItem'; // ChatListItemをインポート
+import { RootStackParamList } from '../types/types';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+// ナビゲーションプロパティの型を指定
+type MessageScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Message'>;
 
 const MessageScreen: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<MessageScreenNavigationProp>();
+
   const [modalVisible, setModalVisible] = useState(false);
+  
 
   // ダミーデータ
   const chats = [
@@ -32,7 +39,11 @@ const MessageScreen: React.FC = () => {
         data={chats}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <ChatListItem chatName={item.chatName} lastMessage={item.lastMessage} />
+          <ChatListItem
+            chatName={item.chatName}
+            lastMessage={item.lastMessage}
+            onPress={() => navigation.navigate('ChatRoomScreen', { chatId: item.id })}
+          />
         )}
       />
       <AddFriendScreen isVisible={modalVisible} onClose={() => setModalVisible(false)} />
