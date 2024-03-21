@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { Button, FlatList, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AddFriendScreen from './AddFriendScreen';
-import ChatListItem from '../components/ChatListItem'; // ChatListItemをインポート
+import ChatListItem from '../components/ChatListItem';
 import { RootStackParamList } from '../types/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -24,6 +24,7 @@ const MessageScreen: React.FC = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerTitle: 'Messages', // タイトルを設定
       headerRight: () => (
         <Button
           onPress={() => setModalVisible(true)}

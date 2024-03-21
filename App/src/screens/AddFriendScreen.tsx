@@ -1,5 +1,4 @@
-// ファイル名: AddFriendScreen.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, Button } from 'react-native';
 
 interface AddFriendScreenProps {
@@ -8,6 +7,12 @@ interface AddFriendScreenProps {
 }
 
 const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose }) => {
+  const [email, setEmail] = useState('');
+
+  const handleAddFriend = () => {
+    console.log('メールアドレス送信:', email);
+    // ここでバックエンドにメールアドレスを送信し、友達追加の処理を行う想定
+  };
   return (
     <Modal
       animationType="slide"
@@ -23,7 +28,7 @@ const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose })
           autoCapitalize="none" // 小文字入力を保証
         />
         <Button
-          title="送信"
+          title="追加"
           onPress={() => console.log('メールアドレス送信')} 
         />
         <Button
