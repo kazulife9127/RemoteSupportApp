@@ -3,10 +3,21 @@
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 
-type Message @model @auth(rules: [{allow: public}]) {
+type User @model @auth(rules: [{allow: public}]) {
   id: ID!
-  UserId: String!
-  message: String!
+  email: String! @index(name: "uniqueEmail", sortKeyFields: [], queryField: "userByEmail")
+  username: String! @index(name: "uniqueUsername", sortKeyFields: [], queryField: "userByUsername")
+  friends: [Friendship] @hasMany(indexName: "byUser", fields: ["id"])
 }
+
+type Friendship @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userId: ID!
+  friendId: ID!
+  user: User @belongsTo(fields: ["userId"])
+  friend: User @belongsTo(fields: ["friendId"])
+}
+
+
 
 
