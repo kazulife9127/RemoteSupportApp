@@ -8,9 +8,9 @@ interface User {
   
   // デモ用のユーザーデータ
   const demoUsers: User[] = [
-    { id: '1', email: 'user1@example.com', username: 'UserOne' },
-    { id: '2', email: 'user2@example.com', username: 'UserTwo' },
-    { id: '3', email: 'user3@example.com', username: 'UserThree' },
+    { id: '1', email: 'user1@example.com', username: 'Masao' },
+    { id: '2', email: 'user2@example.com', username: 'Nene' },
+    { id: '3', email: 'user3@example.com', username: 'Suneo' },
   ];
   
   // メールアドレスに基づいてユーザーを検索する関数

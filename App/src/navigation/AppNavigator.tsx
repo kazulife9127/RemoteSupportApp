@@ -5,7 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MessageScreen from '../screens/MessageScreen';
 import ChatRoomScreen from '../screens/ChatRoomScreen'; 
 import SettingsScreen from '../screens/SettingsScreen';
-import ContactScreen from '../screens/ContactScreen'
+import ContactScreen from '../screens/ContactScreen';
+import { FriendsProvider } from '../contexts/FriendsContext';
 
 
 const Tab = createBottomTabNavigator();
@@ -23,13 +24,15 @@ function MessageStackScreen() {
 
 const AppNavigator: React.FC = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Message" component={MessageStackScreen} />
-        <Tab.Screen name="Contact" component={ContactScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <FriendsProvider>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+          <Tab.Screen name="Message" component={MessageStackScreen} />
+          <Tab.Screen name="Contact" component={ContactScreen} />
+          <Tab.Screen name="Settings" component={SettingsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </FriendsProvider>
   );
 };
 

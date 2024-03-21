@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
-import { findUserByEmail } from '../api'; // API関数のインポート
+import { findUserByEmail } from '../api';
+import { useFriends } from '../contexts/FriendsContext'; // FriendsContextのインポート
 
 interface AddFriendScreenProps {
   isVisible: boolean;
@@ -16,12 +17,12 @@ interface User {
 const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose }) => {
   const [email, setEmail] = useState('');
   const [searchResult, setSearchResult] = useState<User | null>(null);
+  const { addFriend } = useFriends(); // addFriend関数を使用
 
   const handleSearch = async () => {
     if (email) {
       const results = await findUserByEmail(email);
       if (results.length > 0) {
-        // メールアドレスに合致する最初のユーザーを表示
         setSearchResult(results[0]);
       } else {
         Alert.alert('検索結果', '該当するユーザーが見つかりませんでした。');
@@ -29,6 +30,14 @@ const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose })
       }
     } else {
       Alert.alert('入力エラー', 'メールアドレスを入力してください。');
+    }
+  };
+
+  const handleAddFriend = () => {
+    if (searchResult) {
+      addFriend(searchResult); // 友達追加処理
+      Alert.alert('成功', `${searchResult.username}を友達リストに追加しました。`);
+      onClose(); // モーダルを閉じる
     }
   };
 
@@ -51,16 +60,8 @@ const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose })
         <Button title="検索" onPress={handleSearch} />
         {searchResult && (
           <View style={styles.resultContainer}>
-            <Text style={styles.resultText}> {searchResult.username}</Text>
-            <TouchableOpacity onPress={() => Alert.alert('友達追加', `ユーザー ${searchResult.username} を友達に追加しますか？`, [
-              {
-                text: "はい",
-                onPress: () => {/* 友達追加の処理 */},
-              },
-              {
-                text: "いいえ",
-              },
-            ])}>
+            <Text style={styles.resultText}>{searchResult.username}</Text>
+            <TouchableOpacity onPress={handleAddFriend}>
               <Text style={styles.addButton}>友達に追加</Text>
             </TouchableOpacity>
           </View>
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   addButton: {
-    marginTop: 100,
+    marginTop: 10,
     color: 'blue',
   },
 });

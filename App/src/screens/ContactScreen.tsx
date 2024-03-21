@@ -1,20 +1,22 @@
 // ファイル名: ContactScreen.tsx
 import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { useFriends } from '../contexts/FriendsContext';
 
 interface Friend {
   id: string;
   email: string;
+  username: string;
 }
 
 const initialFriends: Friend[] = [
-  { id: '1', email: 'friend1@example.com' },
-  { id: '2', email: 'friend2@example.com' },
+  { id: '1', email: 'friend1@example.com', username: 'UserOne' },
+  { id: '2', email: 'friend2@example.com', username: 'UserTwo' },
   // ダミーデータ、実際にはAPIからのデータを想定
 ];
 
 const ContactScreen: React.FC = () => {
-  const [friends, setFriends] = useState<Friend[]>(initialFriends);
+  const { friends } = useFriends();
 
   return (
     <View style={styles.container}>
@@ -24,7 +26,7 @@ const ContactScreen: React.FC = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.friendItem}>
-            <Text>{item.email}</Text>
+            <Text>{item.username}</Text>
           </View>
         )}
       />
