@@ -1,7 +1,7 @@
+// src/screens/AddFriendScreen
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
-import { findUserByEmail } from '../api';
-import { useFriends } from '../contexts/FriendsContext'; // FriendsContextのインポート
+import { findUserByEmail, addFriend } from '../api/index';
 
 interface AddFriendScreenProps {
   isVisible: boolean;
@@ -17,7 +17,7 @@ interface User {
 const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose }) => {
   const [email, setEmail] = useState('');
   const [searchResult, setSearchResult] = useState<User | null>(null);
-  const { addFriend } = useFriends(); // addFriend関数を使用
+  //const { addFriend } = useFriends(); // addFriend関数を使用
 
   const handleSearch = async () => {
     if (email) {
@@ -36,8 +36,11 @@ const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose })
   const handleAddFriend = () => {
     if (searchResult) {
       addFriend(searchResult); // 友達追加処理
-      Alert.alert('成功', `${searchResult.username}を友達リストに追加しました。`);
-      onClose(); // モーダルを閉じる
+      Alert.alert('成功', `${searchResult.username}を友達リストに追加しました。`, [
+        { text: "OK", onPress: () => setEmail('') } // OKボタンを押した後、テキストボックスを空にする
+      ]);
+      setSearchResult(null); // 検索結果もクリアする
+      onClose(); // モーダルを閉じる);
     }
   };
 

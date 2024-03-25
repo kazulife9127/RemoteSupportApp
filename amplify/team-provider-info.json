@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "remotesupportappede90e5f": {}
+        "remotesupportappede90e5f": {},
+        "userPoolGroups": {}
       },
       "api": {
         "remotesupportapp": {}

@@ -1,29 +1,35 @@
-// /src/api/index.ts
+import { generateClient } from 'aws-amplify/api';
+import { listUsers } from '../graphql/queries';
+import { createUser } from '../graphql/mutations';
 
-interface User {
-    id: string;
-    email: string;
-    username: string;
+const client = generateClient();
+
+export const findUserByEmail = async (email: string): Promise<any[]> => {
+  try {
+    const result: any = await client.graphql({
+      query: listUsers,
+      variables: { filter: { email: { eq: email } } }
+    });
+
+    if (result.data && result.data.listUsers && result.data.listUsers.items.length > 0) {
+      return result.data.listUsers.items;
+    }
+    return [];
+  } catch (error) {
+    console.error('Error finding user by email:', error);
+    throw new Error('Error finding user');
   }
-  
-  // デモ用のユーザーデータ
-  const demoUsers: User[] = [
-    { id: '1', email: 'user1@example.com', username: 'Masao' },
-    { id: '2', email: 'user2@example.com', username: 'Nene' },
-    { id: '3', email: 'user3@example.com', username: 'Suneo' },
-  ];
-  
-  // メールアドレスに基づいてユーザーを検索する関数
-  export const findUserByEmail = async (email: string): Promise<User[]> => {
-    // 完全一致でフィルタリングを行う
-    const filteredUsers = demoUsers.filter(user => user.email === email);
-    return Promise.resolve(filteredUsers); // 模擬的な非同期処理を表現
-  };
-  
-  // 以下は、友達を追加する関数のモックです。
-  // 実際のアプリケーションでは、この関数を実際のAPI呼び出しに置き換える必要があります。
-  export const addFriend = async (userId: string): Promise<void> => {
-    console.log(`${userId} has been added as a friend.`); // デモのためのログ
-    return Promise.resolve(); // 模擬的な非同期処理を表現
-  };
-  
+};
+
+export const addFriend = async (user: any): Promise<void> => {
+  try {
+    await client.graphql({
+      query: createUser,
+      variables: { input: user }
+    });
+    console.log(`${user.username} has been added as a friend.`);
+  } catch (error) {
+    console.error('Error adding friend:', error);
+    throw new Error('Error adding friend');
+  }
+};

@@ -15,4 +15,5 @@ Amplify.configure(amplifyconfig);
 import awsExports from './src/aws-exports.js';
 Amplify.configure(awsExports);
 
+
 AppRegistry.registerComponent(appName, () => App);
