@@ -19,7 +19,7 @@ type User struct {
 	CreatedAt string `json:"createdAt"`
 }
 
-func putUserInfo(ctx context.Context, event events.CognitoEventUserPoolsPostConfirmation) (events.CognitoEventUserPoolsPostConfirmation, error) {
+func PutUserInfo(ctx context.Context, event events.CognitoEventUserPoolsPostConfirmation) (events.CognitoEventUserPoolsPostConfirmation, error) {
 	sess := session.Must(session.NewSession())
 	svc := dynamodb.New(sess)
 
@@ -52,5 +52,5 @@ func putUserInfo(ctx context.Context, event events.CognitoEventUserPoolsPostConf
 }
 
 func main() {
-	lambda.Start(putUserInfo)
+	lambda.Start(PutUserInfo)
 }

@@ -63,7 +63,7 @@ const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose })
         <Button title="検索" onPress={handleSearch} />
         {searchResult && (
           <View style={styles.resultContainer}>
-            <Text style={styles.resultText}>{searchResult.username}</Text>
+            <Text style={styles.resultText}>{searchResult.id}</Text>
             <TouchableOpacity onPress={handleAddFriend}>
               <Text style={styles.addButton}>友達に追加</Text>
             </TouchableOpacity>
