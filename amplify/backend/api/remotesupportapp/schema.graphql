@@ -5,10 +5,11 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 type User
 @model
 @auth(rules: [{allow: owner}, {allow: public, operations: [read]}]) {
-  id: ID!
-  username: String!
+  id: ID!  # ユーザー名としても使用
+  username: String  # null 許容
   email: String!
   messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
+  createdAt: AWSDateTime  # null 許容
 }
 
 type Message
@@ -18,6 +19,5 @@ type Message
   content: String!
   userId: ID! @index(name: "byUser")
   user: User @belongsTo(fields: ["userId"])
-  createdAt: AWSDateTime!
+  createdAt: AWSDateTime  # null 許容
 }
-

@@ -1,3 +1,4 @@
+// src/api/index.ts
 import { generateClient } from 'aws-amplify/api';
 import { listUsers } from '../graphql/queries';
 import { createUser } from '../graphql/mutations';

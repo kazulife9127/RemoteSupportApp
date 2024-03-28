@@ -4,13 +4,17 @@
 
 export type CreateUserInput = {
   id?: string | null,
-  username: string,
+  username?: string | null,
   email: string,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type ModelUserConditionInput = {
   username?: ModelStringInput | null,
   email?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
@@ -59,11 +63,11 @@ export type ModelSizeInput = {
 export type User = {
   __typename: "User",
   id: string,
-  username: string,
+  username?: string | null,
   email: string,
   messages?: ModelMessageConnection | null,
-  createdAt: string,
-  updatedAt: string,
+  createdAt?: string | null,
+  updatedAt?: string | null,
   owner?: string | null,
 };
 
@@ -79,8 +83,8 @@ export type Message = {
   content: string,
   userId: string,
   user?: User | null,
-  createdAt: string,
-  updatedAt: string,
+  createdAt?: string | null,
+  updatedAt?: string | null,
   owner?: string | null,
 };
 
@@ -88,6 +92,8 @@ export type UpdateUserInput = {
   id: string,
   username?: string | null,
   email?: string | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type DeleteUserInput = {
@@ -99,12 +105,14 @@ export type CreateMessageInput = {
   content: string,
   userId: string,
   createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type ModelMessageConditionInput = {
   content?: ModelStringInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMessageConditionInput | null > | null,
   or?: Array< ModelMessageConditionInput | null > | null,
   not?: ModelMessageConditionInput | null,
@@ -131,6 +139,7 @@ export type UpdateMessageInput = {
   content?: string | null,
   userId?: string | null,
   createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type DeleteMessageInput = {
@@ -141,6 +150,8 @@ export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   username?: ModelStringInput | null,
   email?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -157,6 +168,7 @@ export type ModelMessageFilterInput = {
   content?: ModelStringInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMessageFilterInput | null > | null,
   or?: Array< ModelMessageFilterInput | null > | null,
   not?: ModelMessageFilterInput | null,
@@ -172,6 +184,8 @@ export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   username?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
@@ -211,6 +225,7 @@ export type ModelSubscriptionMessageFilterInput = {
   content?: ModelSubscriptionStringInput | null,
   userId?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMessageFilterInput | null > | null,
   or?: Array< ModelSubscriptionMessageFilterInput | null > | null,
 };
@@ -224,14 +239,14 @@ export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
     id: string,
-    username: string,
+    username?: string | null,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -245,14 +260,14 @@ export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
     id: string,
-    username: string,
+    username?: string | null,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -266,14 +281,14 @@ export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
     id: string,
-    username: string,
+    username?: string | null,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -292,14 +307,14 @@ export type CreateMessageMutation = {
     user?:  {
       __typename: "User",
       id: string,
-      username: string,
+      username?: string | null,
       email: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -318,14 +333,14 @@ export type UpdateMessageMutation = {
     user?:  {
       __typename: "User",
       id: string,
-      username: string,
+      username?: string | null,
       email: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -344,14 +359,14 @@ export type DeleteMessageMutation = {
     user?:  {
       __typename: "User",
       id: string,
-      username: string,
+      username?: string | null,
       email: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -364,14 +379,14 @@ export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
     id: string,
-    username: string,
+    username?: string | null,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -388,10 +403,10 @@ export type ListUsersQuery = {
     items:  Array< {
       __typename: "User",
       id: string,
-      username: string,
+      username?: string | null,
       email: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -411,14 +426,14 @@ export type GetMessageQuery = {
     user?:  {
       __typename: "User",
       id: string,
-      username: string,
+      username?: string | null,
       email: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -437,8 +452,8 @@ export type ListMessagesQuery = {
       id: string,
       content: string,
       userId: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -461,8 +476,8 @@ export type MessagesByUserIdQuery = {
       id: string,
       content: string,
       userId: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -478,14 +493,14 @@ export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
     id: string,
-    username: string,
+    username?: string | null,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -499,14 +514,14 @@ export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
     id: string,
-    username: string,
+    username?: string | null,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -520,14 +535,14 @@ export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
     id: string,
-    username: string,
+    username?: string | null,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -546,14 +561,14 @@ export type OnCreateMessageSubscription = {
     user?:  {
       __typename: "User",
       id: string,
-      username: string,
+      username?: string | null,
       email: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -572,14 +587,14 @@ export type OnUpdateMessageSubscription = {
     user?:  {
       __typename: "User",
       id: string,
-      username: string,
+      username?: string | null,
       email: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -598,14 +613,14 @@ export type OnDeleteMessageSubscription = {
     user?:  {
       __typename: "User",
       id: string,
-      username: string,
+      username?: string | null,
       email: string,
-      createdAt: string,
-      updatedAt: string,
+      createdAt?: string | null,
+      updatedAt?: string | null,
       owner?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string | null,
+    updatedAt?: string | null,
     owner?: string | null,
   } | null,
 };
