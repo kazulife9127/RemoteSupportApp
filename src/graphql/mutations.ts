@@ -20,6 +20,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       nextToken
       __typename
     }
+    friends {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -42,6 +46,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       nextToken
       __typename
     }
+    friends {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -61,6 +69,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     username
     email
     messages {
+      nextToken
+      __typename
+    }
+    friends {
       nextToken
       __typename
     }
@@ -154,4 +166,112 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
 ` as GeneratedMutation<
   APITypes.DeleteMessageMutationVariables,
   APITypes.DeleteMessageMutation
+>;
+export const createFriendship = /* GraphQL */ `mutation CreateFriendship(
+  $input: CreateFriendshipInput!
+  $condition: ModelFriendshipConditionInput
+) {
+  createFriendship(input: $input, condition: $condition) {
+    id
+    userId
+    friendId
+    user {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    friend {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateFriendshipMutationVariables,
+  APITypes.CreateFriendshipMutation
+>;
+export const updateFriendship = /* GraphQL */ `mutation UpdateFriendship(
+  $input: UpdateFriendshipInput!
+  $condition: ModelFriendshipConditionInput
+) {
+  updateFriendship(input: $input, condition: $condition) {
+    id
+    userId
+    friendId
+    user {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    friend {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateFriendshipMutationVariables,
+  APITypes.UpdateFriendshipMutation
+>;
+export const deleteFriendship = /* GraphQL */ `mutation DeleteFriendship(
+  $input: DeleteFriendshipInput!
+  $condition: ModelFriendshipConditionInput
+) {
+  deleteFriendship(input: $input, condition: $condition) {
+    id
+    userId
+    friendId
+    user {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    friend {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteFriendshipMutationVariables,
+  APITypes.DeleteFriendshipMutation
 >;

@@ -20,6 +20,10 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
       nextToken
       __typename
     }
+    friends {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -42,6 +46,10 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
       nextToken
       __typename
     }
+    friends {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -61,6 +69,10 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
     username
     email
     messages {
+      nextToken
+      __typename
+    }
+    friends {
       nextToken
       __typename
     }
@@ -154,4 +166,112 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage(
 ` as GeneratedSubscription<
   APITypes.OnDeleteMessageSubscriptionVariables,
   APITypes.OnDeleteMessageSubscription
+>;
+export const onCreateFriendship = /* GraphQL */ `subscription OnCreateFriendship(
+  $filter: ModelSubscriptionFriendshipFilterInput
+  $owner: String
+) {
+  onCreateFriendship(filter: $filter, owner: $owner) {
+    id
+    userId
+    friendId
+    user {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    friend {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateFriendshipSubscriptionVariables,
+  APITypes.OnCreateFriendshipSubscription
+>;
+export const onUpdateFriendship = /* GraphQL */ `subscription OnUpdateFriendship(
+  $filter: ModelSubscriptionFriendshipFilterInput
+  $owner: String
+) {
+  onUpdateFriendship(filter: $filter, owner: $owner) {
+    id
+    userId
+    friendId
+    user {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    friend {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateFriendshipSubscriptionVariables,
+  APITypes.OnUpdateFriendshipSubscription
+>;
+export const onDeleteFriendship = /* GraphQL */ `subscription OnDeleteFriendship(
+  $filter: ModelSubscriptionFriendshipFilterInput
+  $owner: String
+) {
+  onDeleteFriendship(filter: $filter, owner: $owner) {
+    id
+    userId
+    friendId
+    user {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    friend {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteFriendshipSubscriptionVariables,
+  APITypes.OnDeleteFriendshipSubscription
 >;

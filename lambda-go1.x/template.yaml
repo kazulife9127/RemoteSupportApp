@@ -39,6 +39,21 @@ Resources:
           Properties:
             Path: /putuserinfo
             Method: post
+          
+  addFriendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: addFriend.zip
+      Handler: main
+      Runtime: provided.al2
+      Architectures:
+        - x86_64
+      Events:
+        AddFriend:
+          Type: Api
+          Properties:
+            Path: /addFriend
+            Method: post
 
 Outputs:
   GetEmailQueryAPI:

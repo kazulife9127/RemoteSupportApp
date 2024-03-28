@@ -1,8 +1,6 @@
 // src/api/index.ts
-import { generateClient } from 'aws-amplify/api';
-import { listUsers } from '../graphql/queries';
-import { createUser } from '../graphql/mutations';
-import axios from 'axios'; // 必要に応じてインストール
+
+import axios from 'axios';
 
 export const findUserByEmail = async (email: string): Promise<any[]> => {
   try {
@@ -17,17 +15,14 @@ export const findUserByEmail = async (email: string): Promise<any[]> => {
 
 
 
-const client = generateClient();
-
-
-
-export const addFriend = async (user: any): Promise<void> => {
+export const addFriend = async (userId: string, friendId: string): Promise<void> => {
   try {
-    await client.graphql({
-      query: createUser,
-      variables: { input: user }
+    const lambdaUrl = 'https://yourLambdaFunctionUrl'; // Lambda関数のURLに置き換えてください
+    await axios.post(lambdaUrl, {
+      userId,
+      friendId,
     });
-    console.log(`${user.username} has been added as a friend.`);
+    console.log(`User ${friendId} has been added as a friend to user ${userId}.`);
   } catch (error) {
     console.error('Error adding friend:', error);
     throw new Error('Error adding friend');

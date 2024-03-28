@@ -4,17 +4,15 @@
 
 export type CreateUserInput = {
   id?: string | null,
-  username?: string | null,
+  username: string,
   email: string,
   createdAt?: string | null,
-  updatedAt?: string | null,
 };
 
 export type ModelUserConditionInput = {
   username?: ModelStringInput | null,
   email?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
@@ -62,12 +60,13 @@ export type ModelSizeInput = {
 
 export type User = {
   __typename: "User",
-  id: string,
-  username?: string | null,
+  id?: string | null,
+  username: string,
   email: string,
   messages?: ModelMessageConnection | null,
+  friends?: ModelFriendshipConnection | null,
   createdAt?: string | null,
-  updatedAt?: string | null,
+  updatedAt: string,
   owner?: string | null,
 };
 
@@ -84,7 +83,25 @@ export type Message = {
   userId: string,
   user?: User | null,
   createdAt?: string | null,
-  updatedAt?: string | null,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type ModelFriendshipConnection = {
+  __typename: "ModelFriendshipConnection",
+  items:  Array<Friendship | null >,
+  nextToken?: string | null,
+};
+
+export type Friendship = {
+  __typename: "Friendship",
+  id: string,
+  userId: string,
+  friendId: string,
+  user?: User | null,
+  friend?: User | null,
+  createdAt?: string | null,
+  updatedAt: string,
   owner?: string | null,
 };
 
@@ -93,7 +110,6 @@ export type UpdateUserInput = {
   username?: string | null,
   email?: string | null,
   createdAt?: string | null,
-  updatedAt?: string | null,
 };
 
 export type DeleteUserInput = {
@@ -105,14 +121,12 @@ export type CreateMessageInput = {
   content: string,
   userId: string,
   createdAt?: string | null,
-  updatedAt?: string | null,
 };
 
 export type ModelMessageConditionInput = {
   content?: ModelStringInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMessageConditionInput | null > | null,
   or?: Array< ModelMessageConditionInput | null > | null,
   not?: ModelMessageConditionInput | null,
@@ -139,10 +153,36 @@ export type UpdateMessageInput = {
   content?: string | null,
   userId?: string | null,
   createdAt?: string | null,
-  updatedAt?: string | null,
 };
 
 export type DeleteMessageInput = {
+  id: string,
+};
+
+export type CreateFriendshipInput = {
+  id?: string | null,
+  userId: string,
+  friendId: string,
+  createdAt?: string | null,
+};
+
+export type ModelFriendshipConditionInput = {
+  userId?: ModelIDInput | null,
+  friendId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelFriendshipConditionInput | null > | null,
+  or?: Array< ModelFriendshipConditionInput | null > | null,
+  not?: ModelFriendshipConditionInput | null,
+};
+
+export type UpdateFriendshipInput = {
+  id: string,
+  userId?: string | null,
+  friendId?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteFriendshipInput = {
   id: string,
 };
 
@@ -151,7 +191,6 @@ export type ModelUserFilterInput = {
   username?: ModelStringInput | null,
   email?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -168,7 +207,6 @@ export type ModelMessageFilterInput = {
   content?: ModelStringInput | null,
   userId?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
   and?: Array< ModelMessageFilterInput | null > | null,
   or?: Array< ModelMessageFilterInput | null > | null,
   not?: ModelMessageFilterInput | null,
@@ -180,12 +218,21 @@ export enum ModelSortDirection {
 }
 
 
+export type ModelFriendshipFilterInput = {
+  id?: ModelIDInput | null,
+  userId?: ModelIDInput | null,
+  friendId?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelFriendshipFilterInput | null > | null,
+  or?: Array< ModelFriendshipFilterInput | null > | null,
+  not?: ModelFriendshipFilterInput | null,
+};
+
 export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   username?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
@@ -225,9 +272,17 @@ export type ModelSubscriptionMessageFilterInput = {
   content?: ModelSubscriptionStringInput | null,
   userId?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMessageFilterInput | null > | null,
   or?: Array< ModelSubscriptionMessageFilterInput | null > | null,
+};
+
+export type ModelSubscriptionFriendshipFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userId?: ModelSubscriptionIDInput | null,
+  friendId?: ModelSubscriptionIDInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionFriendshipFilterInput | null > | null,
+  or?: Array< ModelSubscriptionFriendshipFilterInput | null > | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -238,15 +293,19 @@ export type CreateUserMutationVariables = {
 export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
-    id: string,
-    username?: string | null,
+    id?: string | null,
+    username: string,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
+    friends?:  {
+      __typename: "ModelFriendshipConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -259,15 +318,19 @@ export type UpdateUserMutationVariables = {
 export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
-    id: string,
-    username?: string | null,
+    id?: string | null,
+    username: string,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
+    friends?:  {
+      __typename: "ModelFriendshipConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -280,15 +343,19 @@ export type DeleteUserMutationVariables = {
 export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
-    id: string,
-    username?: string | null,
+    id?: string | null,
+    username: string,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
+    friends?:  {
+      __typename: "ModelFriendshipConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -306,15 +373,15 @@ export type CreateMessageMutation = {
     userId: string,
     user?:  {
       __typename: "User",
-      id: string,
-      username?: string | null,
+      id?: string | null,
+      username: string,
       email: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -332,15 +399,15 @@ export type UpdateMessageMutation = {
     userId: string,
     user?:  {
       __typename: "User",
-      id: string,
-      username?: string | null,
+      id?: string | null,
+      username: string,
       email: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -358,15 +425,120 @@ export type DeleteMessageMutation = {
     userId: string,
     user?:  {
       __typename: "User",
-      id: string,
-      username?: string | null,
+      id?: string | null,
+      username: string,
       email: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateFriendshipMutationVariables = {
+  input: CreateFriendshipInput,
+  condition?: ModelFriendshipConditionInput | null,
+};
+
+export type CreateFriendshipMutation = {
+  createFriendship?:  {
+    __typename: "Friendship",
+    id: string,
+    userId: string,
+    friendId: string,
+    user?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    friend?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateFriendshipMutationVariables = {
+  input: UpdateFriendshipInput,
+  condition?: ModelFriendshipConditionInput | null,
+};
+
+export type UpdateFriendshipMutation = {
+  updateFriendship?:  {
+    __typename: "Friendship",
+    id: string,
+    userId: string,
+    friendId: string,
+    user?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    friend?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteFriendshipMutationVariables = {
+  input: DeleteFriendshipInput,
+  condition?: ModelFriendshipConditionInput | null,
+};
+
+export type DeleteFriendshipMutation = {
+  deleteFriendship?:  {
+    __typename: "Friendship",
+    id: string,
+    userId: string,
+    friendId: string,
+    user?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    friend?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -378,15 +550,19 @@ export type GetUserQueryVariables = {
 export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
-    id: string,
-    username?: string | null,
+    id?: string | null,
+    username: string,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
+    friends?:  {
+      __typename: "ModelFriendshipConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -402,11 +578,11 @@ export type ListUsersQuery = {
     __typename: "ModelUserConnection",
     items:  Array< {
       __typename: "User",
-      id: string,
-      username?: string | null,
+      id?: string | null,
+      username: string,
       email: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -425,15 +601,15 @@ export type GetMessageQuery = {
     userId: string,
     user?:  {
       __typename: "User",
-      id: string,
-      username?: string | null,
+      id?: string | null,
+      username: string,
       email: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -453,7 +629,7 @@ export type ListMessagesQuery = {
       content: string,
       userId: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -477,7 +653,87 @@ export type MessagesByUserIdQuery = {
       content: string,
       userId: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetFriendshipQueryVariables = {
+  id: string,
+};
+
+export type GetFriendshipQuery = {
+  getFriendship?:  {
+    __typename: "Friendship",
+    id: string,
+    userId: string,
+    friendId: string,
+    user?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    friend?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListFriendshipsQueryVariables = {
+  filter?: ModelFriendshipFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFriendshipsQuery = {
+  listFriendships?:  {
+    __typename: "ModelFriendshipConnection",
+    items:  Array< {
+      __typename: "Friendship",
+      id: string,
+      userId: string,
+      friendId: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type FriendshipsByUserIdQueryVariables = {
+  userId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelFriendshipFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type FriendshipsByUserIdQuery = {
+  friendshipsByUserId?:  {
+    __typename: "ModelFriendshipConnection",
+    items:  Array< {
+      __typename: "Friendship",
+      id: string,
+      userId: string,
+      friendId: string,
+      createdAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -492,15 +748,19 @@ export type OnCreateUserSubscriptionVariables = {
 export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
-    id: string,
-    username?: string | null,
+    id?: string | null,
+    username: string,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
+    friends?:  {
+      __typename: "ModelFriendshipConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -513,15 +773,19 @@ export type OnUpdateUserSubscriptionVariables = {
 export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
-    id: string,
-    username?: string | null,
+    id?: string | null,
+    username: string,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
+    friends?:  {
+      __typename: "ModelFriendshipConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -534,15 +798,19 @@ export type OnDeleteUserSubscriptionVariables = {
 export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
-    id: string,
-    username?: string | null,
+    id?: string | null,
+    username: string,
     email: string,
     messages?:  {
       __typename: "ModelMessageConnection",
       nextToken?: string | null,
     } | null,
+    friends?:  {
+      __typename: "ModelFriendshipConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -560,15 +828,15 @@ export type OnCreateMessageSubscription = {
     userId: string,
     user?:  {
       __typename: "User",
-      id: string,
-      username?: string | null,
+      id?: string | null,
+      username: string,
       email: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -586,15 +854,15 @@ export type OnUpdateMessageSubscription = {
     userId: string,
     user?:  {
       __typename: "User",
-      id: string,
-      username?: string | null,
+      id?: string | null,
+      username: string,
       email: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };
@@ -612,15 +880,120 @@ export type OnDeleteMessageSubscription = {
     userId: string,
     user?:  {
       __typename: "User",
-      id: string,
-      username?: string | null,
+      id?: string | null,
+      username: string,
       email: string,
       createdAt?: string | null,
-      updatedAt?: string | null,
+      updatedAt: string,
       owner?: string | null,
     } | null,
     createdAt?: string | null,
-    updatedAt?: string | null,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateFriendshipSubscriptionVariables = {
+  filter?: ModelSubscriptionFriendshipFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateFriendshipSubscription = {
+  onCreateFriendship?:  {
+    __typename: "Friendship",
+    id: string,
+    userId: string,
+    friendId: string,
+    user?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    friend?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateFriendshipSubscriptionVariables = {
+  filter?: ModelSubscriptionFriendshipFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateFriendshipSubscription = {
+  onUpdateFriendship?:  {
+    __typename: "Friendship",
+    id: string,
+    userId: string,
+    friendId: string,
+    user?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    friend?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteFriendshipSubscriptionVariables = {
+  filter?: ModelSubscriptionFriendshipFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteFriendshipSubscription = {
+  onDeleteFriendship?:  {
+    __typename: "Friendship",
+    id: string,
+    userId: string,
+    friendId: string,
+    user?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    friend?:  {
+      __typename: "User",
+      id?: string | null,
+      username: string,
+      email: string,
+      createdAt?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt?: string | null,
+    updatedAt: string,
     owner?: string | null,
   } | null,
 };

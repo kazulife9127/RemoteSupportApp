@@ -16,4 +16,12 @@ mv putUserInfo.zip ../ # ZIPファイルを上のディレクトリに移動
 mv bootstrap ../
 cd ..
 
+# addFriend関数のビルドとアーカイブ
+cd addFriend
+GOOS=linux GOARCH=amd64 go build -o bootstrap
+zip addFriend.zip bootstrap
+mv addFriend.zip ../ # ZIPファイルを上のディレクトリに移動
+mv bootstrap ../
+cd ..
+
 echo "ビルドとアーカイブが完了しました"

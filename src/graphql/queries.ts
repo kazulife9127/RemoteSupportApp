@@ -17,6 +17,10 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       nextToken
       __typename
     }
+    friends {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     owner
@@ -121,4 +125,91 @@ export const messagesByUserId = /* GraphQL */ `query MessagesByUserId(
 ` as GeneratedQuery<
   APITypes.MessagesByUserIdQueryVariables,
   APITypes.MessagesByUserIdQuery
+>;
+export const getFriendship = /* GraphQL */ `query GetFriendship($id: ID!) {
+  getFriendship(id: $id) {
+    id
+    userId
+    friendId
+    user {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    friend {
+      id
+      username
+      email
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetFriendshipQueryVariables,
+  APITypes.GetFriendshipQuery
+>;
+export const listFriendships = /* GraphQL */ `query ListFriendships(
+  $filter: ModelFriendshipFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFriendships(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userId
+      friendId
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListFriendshipsQueryVariables,
+  APITypes.ListFriendshipsQuery
+>;
+export const friendshipsByUserId = /* GraphQL */ `query FriendshipsByUserId(
+  $userId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelFriendshipFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  friendshipsByUserId(
+    userId: $userId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      userId
+      friendId
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.FriendshipsByUserIdQueryVariables,
+  APITypes.FriendshipsByUserIdQuery
 >;
