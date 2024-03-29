@@ -24,9 +24,8 @@ func AddFriend(ctx context.Context, request events.APIGatewayProxyRequest) (even
 	userID := request.QueryStringParameters["userId"]
 	friendID := request.QueryStringParameters["friendId"]
 	uniqueID := uuid.New().String()
-	// userIDやfriendIDのバリデーションを追加することも検討してください（省略）
+	fmt.Printf("UserID: %s, FriendID: %s\n", userID, friendID)
 
-	// 以下のコードはそのまま
 	sess := session.Must(session.NewSession())
 	svc := dynamodb.New(sess)
 	_, err := svc.PutItem(&dynamodb.PutItemInput{

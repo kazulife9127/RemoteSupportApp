@@ -4,9 +4,9 @@ import axios from 'axios';
 
 export const findUserByEmail = async (email: string): Promise<any[]> => {
   try {
-      const url = `https://0kym8zlpj0.execute-api.ap-northeast-1.amazonaws.com/dev/getemailquery?email=${encodeURIComponent(email)}`;
-      const response = await axios.get(url);
-      return response.data; // Lambda関数からのレスポンス
+      const lambdaUrl = `https://0kym8zlpj0.execute-api.ap-northeast-1.amazonaws.com/dev/getemailquery?email=${encodeURIComponent(email)}`;
+      const response = await axios.get(lambdaUrl);
+      return response.data;
   } catch (error) {
       console.error('Error finding user by email:', error);
       throw new Error('Error finding user');
@@ -17,7 +17,7 @@ export const findUserByEmail = async (email: string): Promise<any[]> => {
 
 export const addFriend = async (userId: string, friendId: string): Promise<void> => {
   try {
-    const lambdaUrl = 'https://yourLambdaFunctionUrl'; // Lambda関数のURLに置き換えてください
+    const lambdaUrl = 'https://0kym8zlpj0.execute-api.ap-northeast-1.amazonaws.com/dev/addFriend';
     await axios.post(lambdaUrl, {
       userId,
       friendId,

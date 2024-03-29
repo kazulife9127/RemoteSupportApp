@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 import { findUserByEmail, addFriend } from '../api/index';
+import { getCurrentUser } from '@aws-amplify/auth';
 
 interface AddFriendScreenProps {
   isVisible: boolean;
@@ -14,11 +15,11 @@ interface User {
   username: string;
 }
 
+
 const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose }) => {
   const [email, setEmail] = useState('');
   const [searchResult, setSearchResult] = useState<User | null>(null);
-  //const { addFriend } = useFriends(); // addFriend関数を使用
-
+  
   const handleSearch = async () => {
     if (email) {
       const results = await findUserByEmail(email);
@@ -33,16 +34,37 @@ const AddFriendScreen: React.FC<AddFriendScreenProps> = ({ isVisible, onClose })
     }
   };
 
-  const handleAddFriend = () => {
+  const handleAddFriend = async () => {
+    //console.log(searchResult);
     if (searchResult) {
-      addFriend(searchResult); // 友達追加処理
-      Alert.alert('成功', `${searchResult.username}を友達リストに追加しました。`, [
-        { text: "OK", onPress: () => setEmail('') } // OKボタンを押した後、テキストボックスを空にする
-      ]);
-      setSearchResult(null); // 検索結果もクリアする
-      onClose(); // モーダルを閉じる);
+      try {
+        const currentUser = await currentAuthenticatedUser();
+        if (currentUser.userId) {
+          await addFriend(currentUser.username, searchResult.id);
+          Alert.alert('成功', `${searchResult.username}を友達リストに追加しました。`, [
+            { text: "OK", onPress: () => setEmail('') } 
+          ]);
+          setSearchResult(null); 
+          onClose();
+        } else {
+          Alert.alert('エラー', '現在のユーザー情報を取得できませんでした。');
+        }
+      } catch (error) {
+        console.error('友達追加エラー:', error);
+        Alert.alert('エラー', '友達を追加できませんでした。');
+      }
     }
   };
+
+  async function currentAuthenticatedUser(): Promise<{ userId: string; username: string }> {
+    try {
+      const user = await getCurrentUser();
+      return { userId: user.userId, username: user.username };
+    } catch (err) {
+      console.error('現在のユーザー情報取得エラー:', err);
+      return { userId: '', username: '' };
+    }
+  }
 
   return (
     <Modal
